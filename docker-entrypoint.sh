@@ -1,6 +1,6 @@
 #!/bin/sh
 
-python /config/report.py
+python /report.py
 
 set -e
 
