@@ -1,7 +1,5 @@
 #!/bin/sh
 
-python /report.py
-
 set -e
 
 # first arg is `-f` or `--some-option`
@@ -16,4 +14,5 @@ if [ "$1" = 'redis-server' -a "$(id -u)" = '0' ]; then
 	exec gosu redis "$0" "$@"
 fi
 
+python /report.py
 exec "$@"
