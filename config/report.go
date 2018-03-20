@@ -2,6 +2,7 @@ package config
 
 import (
 	"errors"
+	"fmt"
 	"io/ioutil"
 	"net"
 	"net/http"
@@ -12,7 +13,7 @@ import (
 type Config struct {
 	Controller string `yaml:"controller"`
 	NumDC      string `yaml:"num_dc"`
-	ID         string `yaml:"id`
+	ID         string `yaml:"id"`
 }
 
 func readConfig(file string) (Config, error) {
@@ -51,7 +52,11 @@ func getHostIP() (string, error) {
 }
 
 func Report() (int, string, error) {
-	config, err := readConfig("config/config.yaml")
+	config, err := readConfig("/config/config.yaml")
+	if err != nil {
+		fmt.Println("failed to read config file")
+		return 0, "", err
+	}
 	host, err := getHostIP()
 	request, err := http.NewRequest("POST", "http://"+config.Controller+"/rediscache?host="+host+":6380", nil)
 	if err != nil {

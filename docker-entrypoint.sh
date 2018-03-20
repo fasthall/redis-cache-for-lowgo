@@ -1,4 +1,5 @@
 #!/bin/sh
 
-redis-cache-for-lowgo
 redis-server /redis.conf
+echo "Redis server is running..."
+redis-cache-for-lowgo
