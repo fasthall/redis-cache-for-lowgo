@@ -11,11 +11,10 @@ RUN /usr/local/go/bin/go get github.com/go-redis/redis
 RUN /usr/local/go/bin/go get google.golang.org/grpc
 RUN /usr/local/go/bin/go get gopkg.in/yaml.v2
 
-# RUN echo "export PATH=$PATH:/usr/local/go/bin" >> /etc/profile
-# # RUN apt install python python-requests python-yaml -y
-
 COPY . /root/go/src/github.com/fasthall/redis-cache-for-lowgo
 RUN /usr/local/go/bin/go install github.com/fasthall/redis-cache-for-lowgo
 RUN ln -s /root/go/bin/redis-cache-for-lowgo /usr/local/bin/
 
 COPY docker-entrypoint.sh /usr/local/bin/
+COPY redis.conf /
+CMD ["docker-entrypoint.sh"]
