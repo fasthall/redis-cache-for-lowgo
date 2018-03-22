@@ -58,7 +58,7 @@ func Report() (int, string, error) {
 		return 0, "", err
 	}
 	host, err := getHostIP()
-	request, err := http.NewRequest("POST", "http://"+config.Controller+"/rediscache?host="+host+":6380", nil)
+	request, err := http.NewRequest("POST", "http://"+config.Controller+"/cache?host="+host+":6380", nil)
 	if err != nil {
 		return 0, "", err
 	}
