@@ -11,6 +11,7 @@ RUN /usr/local/go/bin/go get github.com/go-redis/redis
 RUN /usr/local/go/bin/go get google.golang.org/grpc
 RUN /usr/local/go/bin/go get gopkg.in/yaml.v2
 RUN /usr/local/go/bin/go get github.com/Sirupsen/logrus
+RUN /usr/local/go/bin/go get github.com/fasthall/gochariots
 
 COPY . /root/go/src/github.com/fasthall/redis-cache-for-lowgo
 RUN /usr/local/go/bin/go install github.com/fasthall/redis-cache-for-lowgo
