@@ -1,13 +1,16 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"net"
+	"time"
 
 	"github.com/Sirupsen/logrus"
 
 	"github.com/fasthall/gochariots/maintainer/adapter/mongodb"
 	"github.com/fasthall/redis-cache-for-lowgo/cache"
+	"github.com/fasthall/redis-cache-for-lowgo/config"
 	"github.com/go-redis/redis"
 	context "golang.org/x/net/context"
 	"google.golang.org/grpc"
@@ -97,14 +100,14 @@ func main() {
 	}
 	defer ln.Close()
 
-	// err = errors.New("")
-	// for err != nil {
-	// 	time.Sleep(time.Second * 2)
-	// 	_, _, err = config.Report()
-	// 	if err != nil {
-	// 		logrus.WithError(err).Error("failed to report to controller, retry in 2 seconds")
-	// 	}
-	// }
+	err = errors.New("")
+	for err != nil {
+		time.Sleep(time.Second * 1)
+		_, _, err = config.Report()
+		if err != nil {
+			logrus.WithError(err).Error("failed to report to controller, retry in 1 second")
+		}
+	}
 
 	fmt.Println("server listening to 6380")
 	if err := s.Serve(ln); err != nil {
