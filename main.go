@@ -100,14 +100,16 @@ func main() {
 	}
 	defer ln.Close()
 
-	err = errors.New("")
-	for err != nil {
-		time.Sleep(time.Second * 1)
-		_, _, err = config.Report()
-		if err != nil {
-			logrus.WithError(err).Error("failed to report to controller, retry in 1 second")
+	go func() {
+		err = errors.New("")
+		for err != nil {
+			time.Sleep(time.Second * 1)
+			_, _, err = config.Report()
+			if err != nil {
+				logrus.WithError(err).Error("failed to report to controller, retry in 1 second")
+			}
 		}
-	}
+	}()
 
 	fmt.Println("server listening to 6380")
 	if err := s.Serve(ln); err != nil {
